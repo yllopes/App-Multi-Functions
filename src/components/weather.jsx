@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { styles } from "./style";
+import { styles } from "../styles/style";
 
 export default function WeatherConverter() {
   const [input, setInput] = useState("");
@@ -47,7 +47,7 @@ export default function WeatherConverter() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Weather Converter</Text>
+      <Text style={styles.tituloWhite}>Weather Converter</Text>
 
       <Text style={styles.label}>From:</Text>
       <Picker

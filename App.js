@@ -1,23 +1,33 @@
-import { useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
-import SaudeIndice from "./components/imc.jsx";
-import ConversorClima from "./components/weather.jsx";
-import ListaNotas from "./components/doList.jsx";
-import { styles } from "./components/style.js";
+import React, { useState } from "react";
+import { View, Text, Modal, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import SaudeIndice from "./src/components/imc.jsx";
+import ConversorClima from "./src/components/weather.jsx";
+import ListaNotas from "./src/components/doList.jsx";
+import About from "./src/components/about.jsx";
+import MotivationalModal from "./src/components/phrase.jsx";
+import { styles } from "./src/styles/style.js";
+
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeComponent, setActiveComponent] = useState(null);
+  const [motivationVisible, setMotivationVisible] = useState(false);
 
   const microApps = [
     { name: "IMC", component: SaudeIndice },
     { name: "Weather", component: ConversorClima },
     { name: "Notes", component: ListaNotas },
+    { name: "Motivation", component: null },
+    { name: "About", component: About },
   ];
 
-  const openMicroApp = (Component) => {
-    setActiveComponent(() => Component);
-    setModalVisible(true);
+  const openMicroApp = (Component, isMotivation) => {
+    if (isMotivation) {
+      setMotivationVisible(true);
+    } else {
+      setActiveComponent(() => Component);
+      setModalVisible(true);
+    }
   };
 
   const closeModal = () => {
@@ -36,7 +46,7 @@ export default function App() {
           <TouchableOpacity
             key={index}
             style={localStyles.card}
-            onPress={() => openMicroApp(app.component)}
+            onPress={() => openMicroApp(app.component, app.name === "Motivation")}
           >
             <Text style={localStyles.cardTitle}>{app.name}</Text>
           </TouchableOpacity>
@@ -51,18 +61,24 @@ export default function App() {
       >
         <View style={localStyles.modalBackground}>
           <View style={localStyles.modalWindow}>
-
             <TouchableOpacity
               style={localStyles.closeButton}
               onPress={closeModal}
             >
-              <Text style={localStyles.closeText}>Close</Text>
+              <Text style={localStyles.closeText}>Voltar</Text>
             </TouchableOpacity>
 
-            {ActiveComponent && <ActiveComponent />}
+            <ScrollView contentContainerStyle={{ flexGrow: 1, paddingVertical: 6 }}>
+              {ActiveComponent && <ActiveComponent onClose={closeModal} />}
+            </ScrollView>
           </View>
         </View>
       </Modal>
+
+      <MotivationalModal
+        visible={motivationVisible}
+        onClose={() => setMotivationVisible(false)}
+      />
     </View>
   );
 }
@@ -72,52 +88,50 @@ const localStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 18,
+    gap: 14,
     marginTop: 10,
     marginBottom: 10,
   },
-
   card: {
-    backgroundColor: "#4f7cff", 
-    borderRadius: 18,
-    paddingVertical: 28,
-    paddingHorizontal: 22,
-    margin: 8,
-    minWidth: 140,
+    backgroundColor: "#4f7cff",
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 12,
+    margin: 6,
+    minWidth: 110,
     alignItems: "center",
   },
   cardTitle: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
   },
-
   modalBackground: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
+    backgroundColor: "rgba(0,0,0,0.35)",
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: 10,
   },
-
   modalWindow: {
     backgroundColor: "#f5f5f5",
-    borderRadius: 24,
-    padding: 24,
-    minWidth: "80%",
+    borderRadius: 18,
+    padding: 12,
+    minWidth: "65%",
+    maxHeight: "90%",
   },
-
   closeButton: {
     backgroundColor: "#e63946",
-    paddingVertical: 10,
-    paddingHorizontal: 18,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
     borderRadius: 12,
     alignSelf: "flex-end",
-    marginBottom: 14,
+    marginBottom: 10,
   },
   closeText: {
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "bold",
   },
 });

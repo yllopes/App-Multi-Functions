@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { styles } from "./style";
+import { styles } from "../styles/style";
 
 export default function HealthIndex() {
   const [weight, setWeight] = useState("");
@@ -21,7 +21,7 @@ export default function HealthIndex() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Calculate IMC</Text>
+      <Text style={styles.tituloWhite}>Calculate IMC</Text>
 
       <TextInput
         placeholder="Weight (kg)"

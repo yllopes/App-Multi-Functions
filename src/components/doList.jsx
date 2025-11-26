@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
-import { styles } from "./style";
+import { styles } from "../styles/style";
 
 export default function DoList() {
   const [task, setTask] = useState("");
