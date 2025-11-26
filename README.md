@@ -1,6 +1,6 @@
 # 📱 Multi-App React Native (BMI, Weather, Notes + Login)
 
-Este projeto é um aplicativo React Native que reúne vários mini-aplicativos dentro de uma única interface: **BMI Calculator**, **Weather Converter**, **To-Do List** e um **sistema de Login e Registro** utilizando AsyncStorage.  
+Este projeto é um aplicativo React Native que reúne vários mini-aplicativos dentro de uma única interface: **IMC Calculator**, **Weather Converter**, **To-Do List** e um **sistema de Login e Registro** utilizando AsyncStorage.  
 A navegação entre apps é feita usando *modais*, e o login é persistido localmente no dispositivo.
 
 ---
