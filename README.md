@@ -12,7 +12,6 @@ A navegação entre apps é feita usando *modais*, e o login é persistido local
 - AsyncStorage  
 - JavaScript  
 - Hooks (useState, useEffect)  
-- Modal API  
 
 ---
 
